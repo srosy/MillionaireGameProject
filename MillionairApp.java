@@ -7,7 +7,7 @@ public class MillionairApp {
       Price priceWinner = new Price();
       
       Question q1 = new Question();
-      q1.setQuestionContent("A popular expression goes “A bird in the hand is worth two in the” what?");
+      q1.setQuestionContent("A popular expression goes \"A bird in the hand is worth two in the\" what?");
       q1.setOption1("Tree");
       q1.setOption2("Bush");
       q1.setOption3("Window");
@@ -79,7 +79,7 @@ public class MillionairApp {
       list.add(q8);
       
       Question q9 = new Question();
-      q9.setQuestionContent("In the 1984 movie "Gremlins" which of the following is not one of the three rules for taking care of Mogwai?");
+      q9.setQuestionContent("In the 1984 movie \"Gremlins\" which of the following is not one of the three rules for taking care of Mogwai?");
       q9.setOption1("Don't get him wet");
       q9.setOption2("Don't let him sleep too much");
       q9.setOption3("Don't feed him after midnight");
