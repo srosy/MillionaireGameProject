@@ -3,13 +3,27 @@
 * GUI for game play
 **********************************/
 
+
+/******************************************************************************************************************************
+* NOTES: 
+* -In getter/setters, use label.setText(var)to update the code, create update method that calls the setters and getters.
+* -Possibly add music thread
+* 
+*******************************************************************************************************************************/
 import javax.swing.*;
 import java.awt.Color;
 
 public class MillionaireGUI{
 
 public int moneyWon = 2000;//test int moneyWon
-//public int questionNumber = object.getQuestionNumber();
+//public int questionNumber = object.getQuestionNumber(currentQuestionNum);
+//private String message = object.getMessageOutput(currentQuestion);
+private String message = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+private String answerA = "Answer_A";
+private String answerB = "Answer_B";
+private String answerC = "Answer_C";
+private String answerD = "Answer_D";
+
 
     public JPanel createContentPane (){
 
@@ -21,29 +35,95 @@ public int moneyWon = 2000;//test int moneyWon
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(null);
         titlePanel.setLocation(40, 10);
-        titlePanel.setSize(700, 100);
+        titlePanel.setSize(800, 100);
         totalGUI.add(titlePanel);
 
-        JLabel redLabel = new JLabel("Who wants to be a Millionaire!");
-        redLabel.setFont (redLabel.getFont ().deriveFont (40.0f));
-        redLabel.setLocation(0, 0);
-        redLabel.setSize(700, 100);
-        redLabel.setHorizontalAlignment(0);
-        redLabel.setForeground(Color.red);
-        titlePanel.add(redLabel);
+        JLabel titleLabel = new JLabel("Who wants to be a Millionaire!");
+        titleLabel.setFont (titleLabel.getFont ().deriveFont (40.0f));
+        titleLabel.setLocation(0, 0);
+        titleLabel.setSize(700, 100);
+        titleLabel.setHorizontalAlignment(0);
+        titleLabel.setForeground(Color.red);
+        titlePanel.add(titleLabel);
+        
+        JButton startButton = new JButton("Start");
+        startButton.setLocation(650, 40);
+        startButton.setSize(75, 25);
+        titlePanel.add(startButton);
         
         
-         // Label for score
+        
+        // Label for text output
+         JPanel messagePanel = new JPanel();
+         messagePanel.setLayout(null);
+         messagePanel.setLocation(75, 125);
+         messagePanel.setSize(600, 400); //600 x 400
+         totalGUI.add(messagePanel);
+         
+         // Label for question 
+         JLabel questionLabel = new JLabel(message);
+         questionLabel.setFont (questionLabel.getFont ().deriveFont (20.0f));
+         questionLabel.setLocation(25,0); // 0,0
+         questionLabel.setSize(600, 50);
+         questionLabel.setHorizontalAlignment(0);
+         questionLabel.setForeground(Color.blue);
+         messagePanel.add(questionLabel);
+         
+         
+         // Label for answerA
+         JLabel answerALabel = new JLabel("A: " + answerA);
+         answerALabel.setFont (questionLabel.getFont ().deriveFont (20.0f));
+         answerALabel.setLocation(0,150);
+         answerALabel.setSize(300, 50);
+         answerALabel.setHorizontalAlignment(0);
+         answerALabel.setForeground(Color.black);
+         messagePanel.add(answerALabel);
+         
+         // Label for answerB
+         JLabel answerBLabel = new JLabel("B: " + answerB);
+         answerBLabel.setFont (questionLabel.getFont ().deriveFont (20.0f));
+         answerBLabel.setLocation(0,300);
+         answerBLabel.setSize(300, 50);
+         answerBLabel.setHorizontalAlignment(0);
+         answerBLabel.setForeground(Color.black);
+         messagePanel.add(answerBLabel);
+         
+          // Label for answerCLabel 
+         JLabel answerCLabel = new JLabel("C: " + answerC);
+         answerCLabel.setFont (questionLabel.getFont ().deriveFont (20.0f));
+         answerCLabel.setLocation(300,150);
+         answerCLabel.setSize(300, 50);
+         answerCLabel.setHorizontalAlignment(0);
+         answerCLabel.setForeground(Color.black);
+         messagePanel.add(answerCLabel);
+         
+          // Label for answerDLabel 
+         JLabel answerDLabel = new JLabel("D: " + answerD);
+         answerDLabel.setFont (questionLabel.getFont ().deriveFont (20.0f));
+         answerDLabel.setLocation(300,300);
+         answerDLabel.setSize(300, 50);
+         answerDLabel.setHorizontalAlignment(0);
+         answerDLabel.setForeground(Color.black);
+         messagePanel.add(answerDLabel);
+
+
+
+
+
+
+        
+        
+         // Label for score (money won)
          JPanel scorePanel = new JPanel();
          scorePanel.setLayout(null);
-         scorePanel.setLocation(200, 350);
-         scorePanel.setSize(350, 150);
+         scorePanel.setLocation(200, 475);
+         scorePanel.setSize(350, 25);
          totalGUI.add(scorePanel);
          
          JLabel scoreLabel = new JLabel("Money Won: $" + moneyWon + "!");
          scoreLabel.setFont (scoreLabel.getFont ().deriveFont (25.0f));
          scoreLabel.setLocation(0,0);
-         scoreLabel.setSize(350, 150);
+         scoreLabel.setSize(350, 25);
          scoreLabel.setHorizontalAlignment(0);
          scoreLabel.setForeground(Color.red);
          scorePanel.add(scoreLabel);
