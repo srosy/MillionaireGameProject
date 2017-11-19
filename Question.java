@@ -1,6 +1,6 @@
-import java.util.Scanner;
 
 public class Question {
+
     private String questionContent;
     private String optionA;
     private String optionB;
@@ -92,27 +92,29 @@ public class Question {
         this.correctOption = correctOption;
     }
     
-    public boolean startGame() {
-        System.out.println(this.getQuestionContent());
-        System.out.println("A. " + this.getOption1());
-        System.out.println("B. " + this.getOption2());
-        System.out.println("C. " + this.getOption3());
-        System.out.println("D. " + this.getOption4());
-        
-        System.out.print("Your answer: ");
-        // Yeu cau nguoi choi nhap tu ban phim de tra loi
-        Scanner input = new Scanner(System.in);
-        
-        String userOption = input.nextLine();
-        
-        if (userOption.equals(this.getCorrectOption())){
-            System.out.println("Congratulation, You're correct!");
-            return true;
-        }
-        else {
-            System.out.println("Sorry, You're wrong!");
-            return false;
-        }
-        
-    }
+    // public void startGame() {
+//         System.out.println(this.getQuestionContent());
+//         System.out.println("A. " + this.getOption1());
+//         System.out.println("B. " + this.getOption2());
+//         System.out.println("C. " + this.getOption3());
+//         System.out.println("D. " + this.getOption4());
+//     }
 }
+        
+//        System.out.print("Your answer: ");
+        // Yeu cau nguoi choi nhap tu ban phim de tra loi
+        // Scanner input = new Scanner(System.in);
+//         
+//         String userOption = input.nextLine();
+//         
+//         if (userOption.equals(this.getCorrectOption())){
+//             System.out.println("Congratulation, You're correct!");
+//             return true;
+//         }
+//         else {
+//             System.out.println("Sorry, You're wrong!");
+//             return false;
+//         }
+        
+//    }
+//}
