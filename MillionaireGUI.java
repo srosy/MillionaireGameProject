@@ -15,20 +15,34 @@ import java.awt.Color;
 
 public class MillionaireGUI{
 
-public int moneyWon = 2000;//test int moneyWon
+MillionairApp app = new MillionairApp();
+//app.q1; //this line gives you access to the q1 object from the MillionaireApp class
+
+
+Question q = new Question();
+Price p = new Price();
+
 //public int questionNumber = object.getQuestionNumber(currentQuestionNum);
 //private String message = object.getMessageOutput(currentQuestion);
-private String message = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-private String answerA = "Answer_A";
-private String answerB = "Answer_B";
-private String answerC = "Answer_C";
-private String answerD = "Answer_D";
+private String moneyWon = p.getPrice();
+
+private String message = app.q1.getQuestionContent();
+private String answerA = app.q1.getOption1();
+private String answerB = app.q1.getOption2();
+private String answerC = app.q1.getOption3();
+private String answerD = app.q1.getOption4();
+
+private String correctAnswer = q.getCorrectOption();
+
+
+
 
 
     public JPanel createContentPane (){
 
         // We create a bottom-most JPanel to place everything on
         JPanel totalGUI = new JPanel();
+        
         totalGUI.setLayout(null);
 
         // Panel to contain the title labels
@@ -53,12 +67,28 @@ private String answerD = "Answer_D";
         
         
         
-        // Label for text output
-         JPanel messagePanel = new JPanel();
-         messagePanel.setLayout(null);
-         messagePanel.setLocation(75, 125);
-         messagePanel.setSize(600, 400); //600 x 400
-         totalGUI.add(messagePanel);
+          //Label for text output
+          JPanel messagePanel = new JPanel();
+          messagePanel.setLayout(null);
+          messagePanel.setLocation(75, 125);
+          messagePanel.setSize(600, 400); //600 x 400
+          totalGUI.add(messagePanel);
+         
+         
+         JTextArea qTextArea = new JTextArea();
+         qTextArea.setText(message);
+         qTextArea.setWrapStyleWord(true);
+         qTextArea.setLineWrap(true);
+         qTextArea.setOpaque(false);
+         qTextArea.setEditable(false);
+         qTextArea.setFocusable(false);
+         qTextArea.setBackground(UIManager.getColor("Label.background"));
+         qTextArea.setFont(UIManager.getFont("Label.font"));
+         qTextArea.setBorder(UIManager.getBorder("Label.border"));
+         totalGUI.add(qTextArea);
+         
+         
+         
          
          // Label for question 
          JLabel questionLabel = new JLabel(message);
@@ -88,7 +118,7 @@ private String answerD = "Answer_D";
          answerBLabel.setForeground(Color.black);
          messagePanel.add(answerBLabel);
          
-          // Label for answerCLabel 
+         // Label for answerCLabel 
          JLabel answerCLabel = new JLabel("C: " + answerC);
          answerCLabel.setFont (questionLabel.getFont ().deriveFont (20.0f));
          answerCLabel.setLocation(300,150);
@@ -97,7 +127,7 @@ private String answerD = "Answer_D";
          answerCLabel.setForeground(Color.black);
          messagePanel.add(answerCLabel);
          
-          // Label for answerDLabel 
+         // Label for answerDLabel 
          JLabel answerDLabel = new JLabel("D: " + answerD);
          answerDLabel.setFont (questionLabel.getFont ().deriveFont (20.0f));
          answerDLabel.setLocation(300,300);
@@ -108,11 +138,6 @@ private String answerD = "Answer_D";
 
 
 
-
-
-
-        
-        
          // Label for score (money won)
          JPanel scorePanel = new JPanel();
          scorePanel.setLayout(null);

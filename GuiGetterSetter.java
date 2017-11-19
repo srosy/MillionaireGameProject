@@ -15,7 +15,7 @@ public class GuiGetterSetter{
    
    // get variable with saved string question from program
    public String getQuestion(){
-      return currentQuestion;
+      return MillionaireApp.getcurrentQuestion;
    }
    
    // get variable with saved int round number from program
