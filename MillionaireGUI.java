@@ -20,7 +20,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import java.awt.event.*;
 
-public class MillionaireGUITEST
+public class MillionaireGUI
 {
 
 	static MillionairApp app = new MillionairApp();
