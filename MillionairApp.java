@@ -59,7 +59,7 @@ public static Question q12 = new Question();
       q5.setOption2("L");
       q5.setOption3("G");
       q5.setOption4("D");
-      q5.setCorrectOption("G");
+      q5.setCorrectOption("C");
       
       // Set question 6 properties
       q6.setQuestionContent("What cookie's commercials feature a talking cookie who is grabbed and eaten by humans?");
