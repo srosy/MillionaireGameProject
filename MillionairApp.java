@@ -14,6 +14,9 @@ public static Question q9 = new Question();
 public static Question q10 = new Question();
 public static Question q11 = new Question();
 public static Question q12 = new Question();
+public static Question q13 = new Question();
+public static Question q14 = new Question();
+public static Question q15 = new Question();   
 
 
    public MillionairApp() {        
@@ -117,5 +120,32 @@ public static Question q12 = new Question();
       q12.setOption4("Montana");
       q12.setCorrectOption("B");
       }
+   
+      // Set question 13 properties
+      q13.setQuestionContent("Q13: Which king was married to Eleanor of Aquitaine?");
+      q13.setOption1("Henry I");
+      q13.setOption2("Henry II");
+      q13.setOption3("Henry V");
+      q13.setOption4("Richard I");
+      q13.setCorrectOption("B");
+      list.add(q13);
+      
+      // Set question 14 properties
+      q14.setQuestionContent("Q14: Which scientific unit is named after an Italian nobleman?");
+      q14.setOption1("Pascal");
+      q14.setOption2("Ohm");
+      q14.setOption3("Volt");
+      q14.setOption4("Hertz");
+      q14.setCorrectOption("C");
+      list.add(q14);
+       
+      // Set question 15 properties
+      q15.setQuestionContent("Q15: Which of these African countries is situated south of the equator?");
+      q15.setOption1("Ethiopia");
+      q15.setOption2("Nigeria");
+      q15.setOption3("Zambia");
+      q15.setOption4("Chad");
+      q15.setCorrectOption("C");
+      list.add(q15); 
 }
     
