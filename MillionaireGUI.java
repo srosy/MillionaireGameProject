@@ -5,10 +5,14 @@
 
 /******************************************************************************************************************************
 * NOTES: 
-* -Money isn't being updated with each correct answer
-* -Still need money lable on gui
+* -Money updated fixed, got rid of preceding "$" sign, added commas for clarity
+* -Created moneyLabel and added it to the GUI
+* -got rid of label discoloration bug
+* -fixed bug where crash at end if user continues to click buttons after winning
+* -added restart button and restart funcitonality
+* -in price.java added resetPrice method
 * -Possibly add music thread
-* 
+* -added gameover method
 *******************************************************************************************************************************/
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -29,10 +33,8 @@ public class MillionaireGUI {
 	static Question q = new Question();
 	static Price p = new Price();
 
-	private static String moneyWon = p.getPrice();
-
+	private static String currentMoney = ("Money Won: " + p.getPrice() + "!");
 	private static String correctAnswer = app.q1.getCorrectOption();
-
 	private static String message = app.q1.getQuestionContent();
 	private static String answerA = app.q1.getOption1();
 	private static String answerB = app.q1.getOption2();
@@ -41,8 +43,11 @@ public class MillionaireGUI {
 
 	private static int questionRound = 1; // game starts on round 1
 
+	private static boolean isGameOver = false; // control bit for buttons
+
 	public static JFrame frame = new JFrame("Who wants to be a Millionaire");
 	public static JTextArea questionLabel = new JTextArea();
+	public static JLabel scoreLabel = new JLabel(currentMoney);
 	public static JLabel titleLabel = new JLabel();
 	public static JTextArea answerALabel = new JTextArea();
 	public static JTextArea answerBLabel = new JTextArea();
@@ -71,16 +76,23 @@ public class MillionaireGUI {
 		titleLabel.setForeground(Color.red);
 		titlePanel.add(titleLabel);
 
-		JButton startButton = new JButton("Start");
+		JButton startButton = new JButton("restart");
 		startButton.setLocation(650, 40);
 		startButton.setSize(75, 25);
+		startButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				restartGame();
+			}
+		});
 		titlePanel.add(startButton);
 
 		// Label for text output
 		JPanel messagePanel = new JPanel();
 		messagePanel.setLayout(null);
 		messagePanel.setLocation(75, 125);
-		messagePanel.setSize(600, 400); // 600 x 400
+		messagePanel.setSize(600, 350); // 600 x 400
 		totalGUI.add(messagePanel);
 
 		// JTextArea questionLabel
@@ -100,21 +112,6 @@ public class MillionaireGUI {
 
 		messagePanel.add(questionLabel);
 
-		// ************************** BEGIN TEST SECTION
-		// ************************************************************
-		// I can't get the anwers to update, but I can the question label. I have tried
-		// making the answers into a entry like the question
-		// but I'm getting the same result.
-
-		// // Label for answerA
-		// answerALabel.setText("A: " + answerA);
-		// answerALabel.setFont(questionLabel.getFont().deriveFont(20.0f));
-		// answerALabel.setLocation(0, 150);
-		// answerALabel.setSize(300, 50);
-		// //answerALabel.setHorizontalAlignment(0);
-		// answerALabel.setForeground(Color.black);
-		// messagePanel.add(answerALabel);
-
 		// Text area for answerA
 		answerALabel.setText("A: " + answerA);
 		answerALabel.setSize(300, 50);
@@ -128,48 +125,59 @@ public class MillionaireGUI {
 		answerALabel.setFont(UIManager.getFont("Label.font"));
 		answerALabel.setBorder(UIManager.getBorder("Label.border"));
 		answerALabel.setFont(questionLabel.getFont().deriveFont(20.0f));
-		answerALabel.setForeground(Color.black);
+		answerALabel.setForeground(Color.blue);
 
 		messagePanel.add(answerALabel);
 
-		// ************************** END TEST SECTION
-		// ************************************************************
-
-		// Label for answerB
+		// Text area for answerB
 		answerBLabel.setText("B: " + answerB);
 		answerBLabel.setFont(questionLabel.getFont().deriveFont(20.0f));
 		answerBLabel.setLocation(0, 300);
 		answerBLabel.setSize(300, 50);
-		// answerBLabel.setHorizontalAlignment(0);
-		answerBLabel.setForeground(Color.black);
+		answerBLabel.setForeground(Color.blue);
+		answerBLabel.setWrapStyleWord(true);
+		answerBLabel.setLineWrap(true);
+		answerBLabel.setOpaque(false);
+		answerBLabel.setEditable(false);
+		answerBLabel.setFocusable(false);
+		answerBLabel.setBackground(UIManager.getColor("Label.background"));
 		messagePanel.add(answerBLabel);
 
-		// Label for answerCLabel
+		// Text area for answerCLabel
 		answerCLabel.setText("C: " + answerC);
 		answerCLabel.setFont(questionLabel.getFont().deriveFont(20.0f));
 		answerCLabel.setLocation(300, 150);
 		answerCLabel.setSize(300, 50);
-		// answerCLabel.setHorizontalAlignment(0);
-		answerCLabel.setForeground(Color.black);
+		answerCLabel.setForeground(Color.blue);
+		answerCLabel.setWrapStyleWord(true);
+		answerCLabel.setLineWrap(true);
+		answerCLabel.setOpaque(false);
+		answerCLabel.setEditable(false);
+		answerCLabel.setFocusable(false);
+		answerCLabel.setBackground(UIManager.getColor("Label.background"));
 		messagePanel.add(answerCLabel);
 
-		// Label for answerDLabel
+		// Text area for answerDLabel
 		answerDLabel.setText("D: " + answerD);
 		answerDLabel.setFont(questionLabel.getFont().deriveFont(20.0f));
 		answerDLabel.setLocation(300, 300);
 		answerDLabel.setSize(300, 50);
-		// answerDLabel.setHorizontalAlignment(0);
-		answerDLabel.setForeground(Color.black);
+		answerDLabel.setForeground(Color.blue);
+		answerDLabel.setWrapStyleWord(true);
+		answerDLabel.setLineWrap(true);
+		answerDLabel.setOpaque(false);
+		answerDLabel.setEditable(false);
+		answerDLabel.setFocusable(false);
+		answerDLabel.setBackground(UIManager.getColor("Label.background"));
 		messagePanel.add(answerDLabel);
 
-		// Label for score (money won)
+		// Panel for score (money won)
 		JPanel scorePanel = new JPanel();
 		scorePanel.setLayout(null);
-		scorePanel.setLocation(200, 475);
+		scorePanel.setLocation(200, 490);
 		scorePanel.setSize(350, 25);
 		totalGUI.add(scorePanel);
 
-		JLabel scoreLabel = new JLabel("Money Won: $" + moneyWon + "!");
 		scoreLabel.setFont(scoreLabel.getFont().deriveFont(25.0f));
 		scoreLabel.setLocation(0, 0);
 		scoreLabel.setSize(350, 25);
@@ -181,7 +189,7 @@ public class MillionaireGUI {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(null);
 		buttonPanel.setLocation(50, 550);
-		buttonPanel.setSize(700, 200);
+		buttonPanel.setSize(675, 200);
 		totalGUI.add(buttonPanel);
 
 		// Buttons
@@ -215,7 +223,7 @@ public class MillionaireGUI {
 
 		JButton cButton = new JButton("C");
 		cButton.setLocation(345, 0);
-		cButton.setSize(150, 75);
+		cButton.setSize(125, 75);
 
 		cButton.addActionListener(new ActionListener() {
 
@@ -228,7 +236,7 @@ public class MillionaireGUI {
 
 		JButton dButton = new JButton("D");
 		dButton.setLocation(515, 0);
-		dButton.setSize(150, 75);
+		dButton.setSize(125, 75);
 		dButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -267,6 +275,7 @@ public class MillionaireGUI {
 		case 2:
 			System.out.println("Next Question!");
 			message = app.q2.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q2.getOption1();
 			answerB = app.q2.getOption2();
 			answerC = app.q2.getOption3();
@@ -277,6 +286,7 @@ public class MillionaireGUI {
 
 		case 3:
 			message = app.q3.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q3.getOption1();
 			answerB = app.q3.getOption2();
 			answerC = app.q3.getOption3();
@@ -287,6 +297,7 @@ public class MillionaireGUI {
 
 		case 4:
 			message = app.q4.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q4.getOption1();
 			answerB = app.q4.getOption2();
 			answerC = app.q4.getOption3();
@@ -297,6 +308,7 @@ public class MillionaireGUI {
 
 		case 5:
 			message = app.q5.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q5.getOption1();
 			answerB = app.q5.getOption2();
 			answerC = app.q5.getOption3();
@@ -307,6 +319,7 @@ public class MillionaireGUI {
 
 		case 6:
 			message = app.q6.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q6.getOption1();
 			answerB = app.q6.getOption2();
 			answerC = app.q6.getOption3();
@@ -317,6 +330,7 @@ public class MillionaireGUI {
 
 		case 7:
 			message = app.q7.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q7.getOption1();
 			answerB = app.q7.getOption2();
 			answerC = app.q7.getOption3();
@@ -327,6 +341,7 @@ public class MillionaireGUI {
 
 		case 8:
 			message = app.q8.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q8.getOption1();
 			answerB = app.q8.getOption2();
 			answerC = app.q8.getOption3();
@@ -337,6 +352,7 @@ public class MillionaireGUI {
 
 		case 9:
 			message = app.q9.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q9.getOption1();
 			answerB = app.q9.getOption2();
 			answerC = app.q9.getOption3();
@@ -347,6 +363,7 @@ public class MillionaireGUI {
 
 		case 10:
 			message = app.q10.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q10.getOption1();
 			answerB = app.q10.getOption2();
 			answerC = app.q10.getOption3();
@@ -357,6 +374,7 @@ public class MillionaireGUI {
 
 		case 11:
 			message = app.q11.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q11.getOption1();
 			answerB = app.q11.getOption2();
 			answerC = app.q11.getOption3();
@@ -367,6 +385,7 @@ public class MillionaireGUI {
 
 		case 12:
 			message = app.q12.getQuestionContent();
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			answerA = app.q12.getOption1();
 			answerB = app.q12.getOption2();
 			answerC = app.q12.getOption3();
@@ -376,6 +395,7 @@ public class MillionaireGUI {
 			break;
 
 		case 13:
+			currentMoney = ("Money Won: $" + p.getPrice() + "!");
 			endGame();
 
 		default:
@@ -383,13 +403,19 @@ public class MillionaireGUI {
 		}
 	}
 
-	public void gameOver() {
-		questionLabel.setText("Game Over, total money won: " + moneyWon);
-		update();
+	public static void gameOver() {
+		isGameOver = true;
+		questionLabel.setText("Game Over, total money won: " + p.getPrice());
+		answerALabel.setText("You");
+		answerBLabel.setText("A");
+		answerCLabel.setText("Are");
+		answerDLabel.setText("Loser!");
 	}
 
 	public static void checkAnswer(String c) {
-		if (c == correctAnswer) {
+		if (isGameOver) {
+			return;
+		} else if (c == correctAnswer) {
 			isCorrect();
 		} else {
 			isIncorrect();
@@ -400,36 +426,47 @@ public class MillionaireGUI {
 		questionRound++; // question round increments correctly
 		System.out.println("Correct!");
 		p.setPrice(); // increase the price
-		System.out.println(moneyWon);
+		System.out.println(p.getPrice());
 		nextQuestion(questionRound); // to the next question
 	}
 
 	public static void isIncorrect() {
-		// TODO: set to buttons that aren't the right answer, --> gameOver();
-		System.out.println("Incorrect! GAMEOVER! Money Won: " + moneyWon);
+		System.out.println("Incorrect! GAMEOVER! Money Won: " + p.getPrice());
+		gameOver();
 	}
 
-	// - - - -Update GUI - - - - -
+	public static void restartGame() {
+		System.out.println("restarting game...");
+		message = app.q1.getQuestionContent();
+		p.resetPrice();
+		isGameOver = false;
+		currentMoney = ("Money Won: $" + p.getPrice() + "!");
+		answerA = app.q1.getOption1();
+		answerB = app.q1.getOption2();
+		answerC = app.q1.getOption3();
+		answerD = app.q1.getOption4();
+		correctAnswer = app.q1.getCorrectOption();
+		update();
+	}
+
+	// - - - -Update GUI - - - - -//
 	public static void update() {
 		questionLabel.setText(message);
-		// Going to need one for the price label
+		scoreLabel.setText(currentMoney);
 		answerALabel.setText("A: " + answerA);
 		answerBLabel.setText("B: " + answerB);
 		answerCLabel.setText("C: " + answerC);
 		answerDLabel.setText("D: " + answerD);
-		// System.out.printf("%s\n%s\n%s\n%s\n%s\n", message, answerA, answerB, answerC,
-		// answerD);
 	}
 
 	public static void endGame() {
+		isGameOver = true;
 		questionLabel.setText("CONGRATULATIONS! WINNER!!! MILLIONAIRE!!");
-		// Going to need one for the price label
+		scoreLabel.setText(currentMoney);
 		answerALabel.setText("You");
 		answerBLabel.setText("A");
 		answerCLabel.setText("Are");
 		answerDLabel.setText("Millionaire!");
-		// System.out.printf("%s\n%s\n%s\n%s\n%s\n", message, answerA, answerB, answerC,
-		// answerD);
 	}
 
 	public static void main(String[] args) {
